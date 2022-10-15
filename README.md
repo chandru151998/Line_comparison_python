@@ -1,1 +1,1 @@
-# Line_comparison_python
+# Line comparison program
