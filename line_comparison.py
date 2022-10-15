@@ -1,4 +1,7 @@
 import math
+import logging
+
+logging.basicConfig(filename='LineComparison_logs.log', encoding='utf-8', level=logging.DEBUG)
 
 
 class Line:
@@ -11,10 +14,17 @@ class Line:
         self.line_length_dict = {}
 
     def line_length(self):
-        length = math.sqrt((self.x2 - self.x1) ** 2 + (self.y2 - self.y1) ** 2)
+        """
+        Function to calculate line length
+        """
+        try:
+            length = math.sqrt((self.x2 - self.x1) ** 2 + (self.y2 - self.y1) ** 2)
 
-        self.line_length_dict.update()
-        return length
+            self.line_length_dict.update()
+            return length
+        except Exception as e:
+            print(e)
+            logging.exception(e)
 
     def __eq__(self, line_object):
         return self.line_length() == line_object.line_length()
@@ -27,29 +37,39 @@ class Line:
 
 
 def add_line():
-    x1 = int(input("Enter x1 : "))
-    y1 = int(input("Enter y1 : "))
-    x2 = int(input("Enter x2 : "))
-    y2 = int(input("Enter y2 : "))
+    """
+    Function to add line
+    """
+    try:
+        x1 = int(input("Enter x1 : "))
+        y1 = int(input("Enter y1 : "))
+        x2 = int(input("Enter x2 : "))
+        y2 = int(input("Enter y2 : "))
 
-    print(f'Co-ordinates of the line are (x1, y1): ({x1}, {y1}), (x2, y2): ({x2}, {y2})')
+        print("Co-ordinates of the line are (x1, y1): ({}, {}), (x2, y2): ({}, {})".format(x1, y1, x2, y2))
 
-    line_dict = {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
-    line_object = Line(line_dict)
+        line_dict = {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
+        line_object = Line(line_dict)
 
-    return line_object
+        return line_object
+    except Exception as e:
+        print(e)
+        logging.exception(e)
 
 
 if __name__ == "__main__":
-    print("Enter co-ordinates of first line")
-    first_line_object = add_line()
-    print("Enter co-ordinates of second line")
-    second_line_object = add_line()
+    try:
+        print("Enter co-ordinates of first line")
+        first_line_object = add_line()
+        print("Enter co-ordinates of second line")
+        second_line_object = add_line()
 
-    if first_line_object == second_line_object:
-        print("Both the lines are of equal size")
-    elif first_line_object > second_line_object:
-        print("First line is greater than second line")
-    else:
-        print("Second line is greater than first line")
-
+        if first_line_object == second_line_object:
+            print("Both the lines are of equal size")
+        elif first_line_object > second_line_object:
+            print("First line is greater than second line")
+        else:
+            print("Second line is greater than first line")
+    except Exception as err:
+        print(err)
+        logging.exception(err)
